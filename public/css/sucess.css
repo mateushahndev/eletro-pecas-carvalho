@@ -1,0 +1,64 @@
+.success-container {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+        
+.success-content {
+    text-align: center;
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+}
+        
+.success-icon {
+    font-size: 4rem;
+    color: #2cb438;
+    margin-bottom: 1.5rem;
+}
+        
+.success-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+        
+.btn-success {
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: inline-block;
+}
+        
+.btn-primary {
+    background: #1565c0;
+    color: white;
+    border: 2px solid #1565c0;
+}
+        
+.btn-primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+}
+        
+.btn-outline {
+    background: white;
+    color: #1565c0;
+    border: 2px solid #1565c0;
+}
+        
+.btn-outline:hover {
+    background: #1565c0;
+    color: white;
+    transform: translateY(-2px);
+}

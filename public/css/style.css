@@ -1,0 +1,429 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*---------FONT---------*/
+
+@font-face {
+    font-family: 'Inter';
+    src: url('./font/Inter/Inter-VariableFont_opsz\,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+
+    font-family: 'Logo-Font';
+    src: url('./font/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+}
+
+/*----------TAGS--------------*/
+
+body {
+    background-color: #f7f8fa;
+    color: #2b3749;
+    font-family: 'Inter', sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    opacity: 0.6;
+}
+
+header {
+    background-color: #1565c0;
+    color: #fff;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 7.5vh;  
+    font-family: 'Courier New', Courier, monospace;
+    z-index: 1001;
+}
+
+main {
+    min-height: 70vh;
+}
+
+footer .footer-container {
+    background-color: #1565c0;
+    color: #fff;
+    padding-inline: 8vw;
+    padding-block: 3rem;
+    display: flex;
+}
+
+footer .social-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+footer h5 {
+    font-size: 1.1rem;
+    font-weight: 200;
+    padding-bottom: .3rem;
+}
+
+footer .social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+footer .social-container button {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 1.3rem;
+    padding: .4rem;
+    margin-top: .5rem;
+    cursor: pointer;
+    transition: .3s;
+    width: 250px;
+
+}
+
+footer .social-container button:hover {
+    background-color: #fff;
+    color: #1565c0;
+}
+
+footer .links-container {
+    padding: .2rem 2vw .2rem 6vw;
+}
+
+footer .links-container h5 {
+    padding-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+footer .links-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+    font-size: 1.1rem;
+}
+
+.copyright {
+    background-color: black;
+    padding-block: .5rem;
+    color: #fff;
+    text-align: center;
+    font-size: .9rem;
+}
+
+/*------------CLASSES----------*/
+
+.logo {
+    font-size: 2.5rem;
+    font-family: 'Logo-Font';
+    cursor: pointer;
+}
+
+.logo:hover {
+    opacity: 1;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 3rem;
+    z-index: 1002;
+}
+
+.nav-list li {
+    letter-spacing: 1px;
+}
+
+.mobile-menu {
+    cursor: pointer;
+    display: none;
+}
+
+.mobile-menu div {
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.3s ease;
+    transform-origin: center;
+}
+
+.nav-list.active {
+    transform: translateX(0);
+}
+
+/*.mobile-menu.active .line1 {
+    transform: rotate(45deg) translate(6px, 6px);
+
+}
+
+.mobile-menu.active .line2 {
+    opacity: 0;
+}
+
+.mobile-menu.active .line3 {
+    transform: rotate(-45deg) translate(6px, -6px);
+}*/
+
+.wpp-btn {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+.wpp-btn img {
+    width: 8rem;
+}
+
+/*----------MOBILE------------*/
+
+@media (max-width: 1000px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    nav {
+        justify-content: space-between;
+        margin-inline: 4vw;
+    }
+
+    /* Header normal (não fixo) quando menu fechado */
+    header {
+        position: relative;
+        z-index: 1000;
+    }
+    
+    /* Header fixo quando menu aberto - CORRIGIDO */
+    body.menu-open header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10000;
+        background-color: #1565c0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Ajusta o body quando menu aberto */
+    body.menu-open {
+        padding-top: 7.5vh;
+    }
+
+    .nav-list {
+        position: fixed;
+        top: 7.5vh;
+        right: 0;
+        width: 100vw;
+        height: 92.5vh;
+        background-color: #1565c0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in;
+        z-index: 9999;
+    }
+
+    .nav-list.active {
+        transform: translateX(0);
+    }
+
+    .nav-list li {
+        margin-left: 0;
+        opacity: 1;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .wpp-btn img {
+        width: 6rem;
+    }
+    
+    .logo {
+        font-size: 0;
+    }
+    
+    .logo::after {
+        content: "E.P. CARVALHO";
+        font-size: 2.5rem;
+    }
+}
+
+@media screen and (max-width: 999px) and (orientation: landscape) {
+    body {
+        touch-action: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+    
+    #landscape-warning {
+        touch-action: none;
+        pointer-events: all;
+    }
+}
+
+/*------Footer Media Queryes-------*/
+
+@media (max-width: 650px) {
+    footer .social-container button {
+        width: 150px;
+    }
+
+}
+
+@media (max-width: 475px) {
+    footer .logo::after {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 410px) {
+    footer .links-container {
+        padding: .2rem 2vw .2rem 10vw;
+    }
+}
+
+@media (max-width: 395px) {
+    footer .links-container {
+        padding: .2rem 2vw .2rem 12vw;
+    }
+}
+
+@keyframes navLinkFade {
+    
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*-------Manter no modo claro--------*/
+
+:root {
+  color-scheme: light only;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+  
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+}
+
+
+/* ========== TELAS GRANDES (1920px+) ========== */
+@media (min-width: 1920px) {
+    
+    /* ========== HEADER E NAVEGAÇÃO ========== */
+    nav {
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 0 15vw;
+    }
+    
+    .logo {
+        font-size: 3rem;
+    }
+    
+    .nav-list {
+        gap: 4rem;
+        font-size: 1.2rem;
+    }
+    
+    /* ========== FOOTER ========== */
+    footer .footer-container {
+        max-width: 2000px;
+        margin: 0 auto;
+        padding-inline: 15vw;
+        padding-block: 4rem;
+    }
+    
+    footer .social-container button {
+        font-size: 1.4rem;
+        padding: 0.8rem;
+        width: 280px;
+    }
+    
+    footer h5 {
+        font-size: 1.3rem;
+    }
+    
+    footer .links-list {
+        font-size: 1.2rem;
+        gap: 1.2rem;
+    }
+    
+    .copyright {
+        font-size: 1rem;
+        padding-block: 0.8rem;
+    }
+    
+    /* ========== BOTÃO WHATSAPP ========== */
+    .wpp-btn img {
+        width: 10rem;
+    }
+}
+
+/* ========== TELAS MUITO GRANDES (2560px+) ========== */
+@media (min-width: 2560px) {
+    
+    nav {
+        padding: 0 20vw;
+    }
+    
+    footer .footer-container {
+        padding-inline: 20vw;
+        padding-block: 5rem;
+    }
+    
+    .logo {
+        font-size: 3.5rem;
+    }
+    
+    .nav-list {
+        gap: 5rem;
+        font-size: 1.3rem;
+    }
+}
+
+/* ========== AJUSTES PARA TELAS ULTRAWIDE (21:9) ========== */
+@media (min-width: 1920px) and (min-aspect-ratio: 21/9) {
+    
+    body {
+        max-width: 2200px;
+        margin: 0 auto;
+        box-shadow: 0 0 50px rgba(0,0,0,0.1);
+    }
+    
+    /* Centraliza melhor o conteúdo em telas super largas */
+    .apresentation,
+    .best-sellers,
+    .differentials,
+    .social-proof,
+    .contact {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

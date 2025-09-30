@@ -1,0 +1,23 @@
+{
+  "name": "carvalho",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "multer": "^2.0.2",
+    "nodemailer": "^7.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
