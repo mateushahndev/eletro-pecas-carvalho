@@ -89,7 +89,7 @@ function carregarProduto() {
                 
                 <!-- BOTÃO DE COMPRA COM AVISO SECUNDÁRIO -->
                 <div class="compra-container">
-                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de comprar: ${produto.nome}" 
+                    <a href="https://wa.me/5542999773365?text=Olá! Gostaria de comprar: ${produto.nome}" 
                     class="btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> Comprar via WhatsApp
                     </a>

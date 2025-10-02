@@ -61,7 +61,7 @@ app.post('/enviar-contato', contactLimiter, express.json(), async (req, res) => 
 
         const mailOptions = {
             from: email,
-            to: 'mateushahn333@gmail.com',
+            to: 'eletropecascarvalho@gmail.com',
             subject: `📧 Contato do Site: ${assunto}`,
             html: `
                 <h2>Novo contato do site Eletro Peças Carvalho</h2>
