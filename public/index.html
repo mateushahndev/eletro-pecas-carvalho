@@ -33,14 +33,21 @@
                 <div class="line3"></div>
             </div>
             <ul class="nav-list">
+                <li class="search-mobile-item">
+                    <div class="mobile-search-container">
+                        <div class="search-box-mobile">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="mobileSearch" placeholder="Pesquisar produtos ou páginas..." autocomplete="off">
+                        </div>
+                        <div id="searchResults" class="search-results"></div>
+                    </div>
+                </li>
+                
                 <li>
                     <a class="home" href="/">Início</a>
                 </li>
                 <li>
                     <a href="/produtos" class="products">Produtos</a>
-                </li>
-                <li>
-                    <a href="/blog" class="blog">Blog</a>
                 </li>
                 <li>
                     <a class="about" href="/sobre">Sobre</a>
@@ -54,10 +61,17 @@
             <div class="headline">
                 <h1>Peças com a Qualidade que a Sua Frota Merece</h1>
                 <p>Peças originais da <strong>Bosch</strong>, entrega ágil e <strong>preço competitivo!</strong></p>
-                <a  class="btn-header" href="/produtos">Ver Nossos Produtos</a>
+                <a class="btn-header" href="/produtos">Ver Nossos Produtos</a>
             </div>
-            <div>
-                <img class="img-peca1" src="./images/arranque.png" alt="Peça de carro">
+            <div class="image-swipe-container">
+                <img class="swipe-image active" src="./images/estator3.png" alt="Estator Bosch">
+                <img class="swipe-image" src="./images/arranque.png" alt="Arranque Bosch">
+                <img class="swipe-image" src="./images/alternador.png" alt="Alternador Bosch">
+                <div class="swipe-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                </div>
             </div>
         </div>
     </header>
@@ -109,7 +123,7 @@
                     <img src="./images/bosch-logo.png" alt="Bosch" loading="lazy">
                 </div>
                 <div class="dif">
-                    <h2>Porque Escolher a Eletro Peças Carvalho?</h2>
+                    <h2>Por que Escolher a Eletro Peças Carvalho?</h2>
                     <div class="dif-grid">
                         <div class="dif-row row1">
                             <div>
@@ -233,9 +247,6 @@
                             <a class="productsf" href="/produtos">Produtos</a>
                         </li>
                         <li>
-                            <a class="blogf" href="/blog">Blog</a>
-                        </li>
-                        <li>
                             <a class="aboutf" href="/sobre">Sobre</a>
                         </li>
                         <li>
@@ -251,6 +262,6 @@
     </footer>
     <a class="wpp-btn" href="https://wa.me/5542998530633" target="_blank" rel="noopener noreferrer"><img src="/images/wpp-button.png" alt="Botão do Whatsapp"></a>
     <script src="/js/script.js" type="module"></script>
-    <script src="/js/hojme.js" type="module"></script>
+    <script src="/js/home.js" type="module"></script>
 </body>
 </html>

@@ -830,6 +830,146 @@
 }
 
 
+/* Novo Carrossel */
+
+/* ========== CARROSSEL CORRIGIDO ========== */
+.image-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: auto; /* TROCA: era 300px */
+    min-height: 300px; /* ADICIONA */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel-image {
+    position: absolute;
+    width: 100%;
+    height: auto; /* TROCA: era 100% */
+    max-height: 400px; /* ADICIONA */
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    transform: translateX(0);
+}
+
+.carousel-image.active {
+    opacity: 1;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: relative; /* ADICIONA */
+    bottom: auto; /* ADICIONA */
+    left: auto; /* ADICIONA */
+    transform: none; /* ADICIONA */
+}
+
+.indicator {
+    width: 10px; /* AUMENTA */
+    height: 10px; /* AUMENTA */
+    border-radius: 50%;
+    cursor: pointer;
+    background: #cccccc70;
+    transition: background 0.3s;
+}
+
+.indicator.active {
+    background: #ccc;
+}
+
+/* Mantém a animação de float */
+.carousel-image {
+    animation: float 3s ease-in-out infinite;
+}
+
+.image-swipe-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swipe-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    animation: float 3s ease-in-out infinite;
+    position: absolute;
+}
+
+.swipe-image.active {
+    opacity: 1;
+    position: relative;
+}
+
+.swipe-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+
+.swipe-indicators .indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #cccccc70;
+    transition: background 0.3s;
+}
+
+.swipe-indicators .indicator.active {
+    background: #ccc;
+}
+
+/* Mobile */
+@media (max-width: 992px) {
+    .image-swipe-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .swipe-image {
+        max-width: 400px;
+    }
+    
+    .swipe-indicators {
+        bottom: -30px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-swipe-container {
+        max-width: 300px;
+    }
+    
+    .swipe-image {
+        max-width: 300px;
+    }
+}
+
+
 /* ========== TELAS GRANDES (1920px+) - MONITORES ULTRAWIDE ========== */
 
 @media (min-width: 1920px) {
@@ -1057,3 +1197,31 @@
         max-width: 1400px;
     }
 }
+
+
+/* ========== MOBILE - ESCONDE BOLINHAS ========== */
+/*@media (max-width: 992px) {
+    .image-swipe-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .swipe-image {
+        max-width: 400px;
+    }
+    
+    .swipe-indicators {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-swipe-container {
+        max-width: 300px;
+    }
+    
+    .swipe-image {
+        max-width: 300px;
+    }
+}*/

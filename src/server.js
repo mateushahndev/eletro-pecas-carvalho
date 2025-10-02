@@ -44,16 +44,12 @@ app.get('/produto', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/product.html'));
 });
 
-app.get('/blog', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/blog.html'))
-})
-
-app.get('/blog/:articleId', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/article.html'));
-});
-
 app.get('/sucesso', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/sucess.html'));
+});
+
+app.get('/links', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/links.html'));
 });
 
 app.post('/enviar-contato', contactLimiter, express.json(), async (req, res) => {

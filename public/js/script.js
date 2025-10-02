@@ -1,12 +1,14 @@
 // Botão "Voltar Para o Topo do Footer" 
 const btnTop = document.getElementById("btn-top")
 
-btnTop.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+if (btnTop) {
+    btnTop.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
     })
-})
+}
 
 // Controle do menu hamburguer - VERSÃO CORRIGIDA
 class MobileMenu {
@@ -55,6 +57,16 @@ class MobileMenu {
         this.body.classList.toggle('menu-open');
         this.mobileMenu.classList.toggle('active');
         this.animateLinks(); // ← CHAMA A ANIMAÇÃO
+        
+        // Foca na barra de pesquisa quando abre o menu
+        if (this.navList.classList.contains('active')) {
+            setTimeout(() => {
+                const searchInput = document.getElementById('mobileSearch');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }, 500);
+        }
     }
     
     closeMenu() {
@@ -66,17 +78,238 @@ class MobileMenu {
         this.navLinks.forEach(link => {
             link.style.animation = '';
         });
+        
+        // Esconde resultados da busca
+        const resultsContainer = document.getElementById('searchResults');
+        if (resultsContainer) {
+            resultsContainer.style.display = 'none';
+        }
     }
 }
 
-// Inicializa quando o DOM carregar
-document.addEventListener('DOMContentLoaded', () => {
-    new MobileMenu();
-    console.log('Menu mobile inicializado!');
-});
-
-// DEBUG - Mostra se está funcionando
-console.log('Script carregado - tudo ok!');
+// SISTEMA DE BUSCA MOBILE
+class MobileSearch {
+    constructor() {
+        this.searchInput = document.getElementById('mobileSearch');
+        this.resultsContainer = document.getElementById('searchResults');
+        
+        // Base de dados de busca
+        this.produtos = {
+            'arranque-bosch': { 
+                nome: 'Arranque Bosch', 
+                tipo: 'produto',
+                descricao: 'Peça original Bosch'
+            },
+            'alternador-bosch': { 
+                nome: 'Alternador Bosch', 
+                tipo: 'produto',
+                descricao: 'Peça original Bosch'
+            },
+            'carburador-bosch': { 
+                nome: 'Carburador Bosch', 
+                tipo: 'produto',
+                descricao: 'Peça original Bosch'
+            }
+        };
+        
+        this.paginas = {
+            '/produtos': { 
+                nome: 'Produtos', 
+                tipo: 'pagina',
+                descricao: 'Catálogo completo'
+            },
+            '/sobre': { 
+                nome: 'Sobre Nós', 
+                tipo: 'pagina',
+                descricao: 'Conheça nossa empresa'
+            },
+            '/contato': { 
+                nome: 'Contato', 
+                tipo: 'pagina',
+                descricao: 'Fale conosco'
+            },
+            '/': { 
+                nome: 'Início', 
+                tipo: 'pagina',
+                descricao: 'Página inicial'
+            }
+        };
+        
+        if (this.searchInput && this.resultsContainer) {
+            this.init();
+        }
+    }
+    
+    init() {
+        this.searchInput.addEventListener('input', (e) => {
+            this.handleSearch(e.target.value);
+        });
+        
+        this.searchInput.addEventListener('focus', () => {
+            this.showRecentSearches();
+        });
+        
+        this.searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.hideResults();
+                this.searchInput.blur();
+            }
+        });
+        
+        // Fecha resultados ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.mobile-search-container')) {
+                this.hideResults();
+            }
+        });
+    }
+    
+    handleSearch(query) {
+        const searchTerm = query.toLowerCase().trim();
+        
+        if (searchTerm.length === 0) {
+            this.showRecentSearches();
+            return;
+        }
+        
+        if (searchTerm.length < 2) {
+            this.hideResults();
+            return;
+        }
+        
+        const results = this.searchItems(searchTerm);
+        this.displayResults(results, searchTerm);
+    }
+    
+    searchItems(term) {
+        const results = [];
+        
+        // Busca produtos
+        Object.entries(this.produtos).forEach(([id, produto]) => {
+            if (produto.nome.toLowerCase().includes(term)) {
+                results.push({
+                    ...produto,
+                    id,
+                    url: `/produto?id=${id}`,
+                    categoria: 'produto'
+                });
+            }
+        });
+        
+        // Busca páginas
+        Object.entries(this.paginas).forEach(([url, pagina]) => {
+            if (pagina.nome.toLowerCase().includes(term) || url.toLowerCase().includes(term)) {
+                results.push({
+                    ...pagina,
+                    url,
+                    categoria: 'pagina'
+                });
+            }
+        });
+        
+        // Ordena por relevância (produtos primeiro)
+        return results.sort((a, b) => {
+            if (a.categoria === 'produto' && b.categoria !== 'produto') return -1;
+            if (a.categoria !== 'produto' && b.categoria === 'produto') return 1;
+            return 0;
+        });
+    }
+    
+    displayResults(results, searchTerm) {
+        if (results.length === 0) {
+            this.resultsContainer.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <p>Nenhum resultado para "${searchTerm}"</p>
+                    <small>Tente "arranque", "alternador" ou "sobre"</small>
+                </div>
+            `;
+        } else {
+            let html = '';
+            
+            // Agrupa por categoria
+            const produtos = results.filter(r => r.categoria === 'produto');
+            const paginas = results.filter(r => r.categoria === 'pagina');
+            
+            if (produtos.length > 0) {
+                html += `<div class="search-result-category">Produtos</div>`;
+                produtos.forEach(item => {
+                    html += `
+                        <div class="search-result-item product" data-url="${item.url}">
+                            <i class="fas fa-cog"></i>
+                            <div>
+                                <strong>${item.nome}</strong>
+                                <div style="font-size: 0.8rem; color: #666;">${item.descricao}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            if (paginas.length > 0) {
+                html += `<div class="search-result-category">Páginas</div>`;
+                paginas.forEach(item => {
+                    html += `
+                        <div class="search-result-item page" data-url="${item.url}">
+                            <i class="fas fa-file-alt"></i>
+                            <div>
+                                <strong>${item.nome}</strong>
+                                <div style="font-size: 0.8rem; color: #666;">${item.descricao}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            this.resultsContainer.innerHTML = html;
+        }
+        
+        this.showResults();
+        this.addResultClickEvents();
+    }
+    
+    showRecentSearches() {
+        // Pode implementar histórico de buscas aqui depois
+        this.hideResults();
+    }
+    
+    showResults() {
+        this.resultsContainer.style.display = 'block';
+    }
+    
+    hideResults() {
+        this.resultsContainer.style.display = 'none';
+    }
+    
+    addResultClickEvents() {
+        const resultItems = this.resultsContainer.querySelectorAll('.search-result-item');
+        
+        resultItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const url = item.getAttribute('data-url');
+                this.navigateTo(url);
+            });
+        });
+    }
+    
+    navigateTo(url) {
+        // Fecha o menu mobile
+        const navList = document.querySelector('.nav-list');
+        const body = document.body;
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        if (navList) navList.classList.remove('active');
+        if (body) body.classList.remove('menu-open');
+        if (mobileMenu) mobileMenu.classList.remove('active');
+        
+        // Limpa a busca
+        this.searchInput.value = '';
+        this.hideResults();
+        
+        // Navega para a página
+        window.location.href = url;
+    }
+}
 
 // Função para BLOQUEAR modo paisagem no mobile
 function showLandscapeWarning() {
@@ -145,32 +378,47 @@ function lockOrientation() {
     }
 }
 
-// Inicializar
+// Inicializar tudo quando DOM carregar
 document.addEventListener('DOMContentLoaded', function() {
+    // Inicializa menu mobile
+    new MobileMenu();
+    
+    // Inicializa busca mobile
+    new MobileSearch();
+    
+    // Sistema de orientação
     lockOrientation();
     showLandscapeWarning();
     
-    // Monitorar TUDO que pode mudar orientação
-    window.addEventListener('orientationchange', function() {
-        showLandscapeWarning();
-        setTimeout(lockOrientation, 100);
-    });
-    
-    window.addEventListener('resize', function() {
-        showLandscapeWarning();
-    });
-    
-    // Disparar também quando a visibilidade da página muda
-    document.addEventListener('visibilitychange', function() {
-        if (!document.hidden) {
-            setTimeout(showLandscapeWarning, 300);
-        }
-    });
+    console.log('Sistemas inicializados: Menu Mobile + Busca');
+});
+
+// Monitorar eventos de orientação e resize
+window.addEventListener('orientationchange', function() {
+    showLandscapeWarning();
+    setTimeout(lockOrientation, 100);
+});
+
+window.addEventListener('resize', function() {
+    showLandscapeWarning();
+});
+
+// Disparar também quando a visibilidade da página muda
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        setTimeout(showLandscapeWarning, 300);
+    }
 });
 
 // Bloquear qualquer rotação do teclado no mobile
 window.addEventListener('keydown', function(e) {
-    if (e.key === ' ' || e.key === 'Spacebar') {
+    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+    const isMobile = window.innerWidth < 1000;
+    
+    if ((e.key === ' ' || e.key === 'Spacebar') && isLandscape && isMobile) {
         e.preventDefault();
     }
 });
+
+// DEBUG - Mostra se está funcionando
+console.log('Script carregado - tudo ok!');

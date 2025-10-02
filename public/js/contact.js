@@ -1,5 +1,3 @@
-// contact.js - DEIXE SÓ ESTE CÓDIGO
-
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('form-contact');
     

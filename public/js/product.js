@@ -70,7 +70,35 @@ function carregarProduto() {
             <div class="produto-info">
                 <h1>${produto.nome}</h1>
                 <span class="marca">Marca: ${produto.marca}</span>
-                <p class="preco">${produto.preco}</p>
+                
+                <!-- ÁREA DO PREÇO COM AVISO ESTRATÉGICO -->
+                <div class="preco-container">
+                    <p class="preco">${produto.preco}</p>
+                    
+                    <!-- AVISO PRINCIPAL - Posicionamento inteligente -->
+                    <div class="aviso-preco">
+                        <div class="aviso-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="aviso-content">
+                            <strong>Apenas o valor da peça</strong>
+                            <span>Não inclui mão de obra ou instalação</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BOTÃO DE COMPRA COM AVISO SECUNDÁRIO -->
+                <div class="compra-container">
+                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de comprar: ${produto.nome}" 
+                    class="btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Comprar via WhatsApp
+                    </a>
+                    
+                    <div class="aviso-compra">
+                        <i class="fas fa-tools"></i>
+                        <span>Precisa de instalação? <strong>Consulte-nos!</strong></span>
+                    </div>
+                </div>
                 
                 <div class="descricao">
                     <h3>Descrição</h3>
@@ -83,11 +111,6 @@ function carregarProduto() {
                         ${produto.especificacoes.map(spec => `<li>${spec}</li>`).join('')}
                     </ul>
                 </div>
-                
-                <a href="https://wa.me/5511999999999?text=Olá! Gostaria de comprar: ${produto.nome}" 
-                   class="btn-whatsapp" target="_blank">
-                   <i class="fab fa-whatsapp"></i> Comprar via WhatsApp
-                </a>
             </div>
         </section>
     `;
